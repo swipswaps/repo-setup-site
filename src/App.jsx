@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 
-// Default repository URL (local-ops-hub as the example)
 const DEFAULT_REPO = 'https://github.com/swipswaps/local-ops-hub.git'
 
 export default function App() {
-  // --- State variables ---
-  // REFERENCE: React useState for form state
   const [repoUrl, setRepoUrl] = useState(DEFAULT_REPO)
   const [includeRuff, setIncludeRuff] = useState(true)
   const [includeEslint, setIncludeEslint] = useState(true)
@@ -13,28 +10,8 @@ export default function App() {
   const [script, setScript] = useState('')
   const [copied, setCopied] = useState(false)
 
-  /**
-   * generateScript - Builds a bash script string based on user selections.
-   *
-   * The generated script clones the target repository, installs selected
-   * linters (Ruff for Python, ESLint+anti-slop for JS/React, ShellCheck for bash),
-   * and detects the OS to use the correct package manager.
-   *
-   * REFERENCE: Bash scripting best practices
-   * https://www.gnu.org/software/bash/manual/bash.html (accessed 2026-08-20)
-   *
-   * REFERENCE: Ruff linter (Python)
-   * https://docs.astral.sh/ruff/ (accessed 2026-08-20)
-   *
-   * REFERENCE: ESLint with anti-slop plugin
-   * https://github.com/dmmulroy/anti-slop (accessed 2026-08-20)
-   *
-   * REFERENCE: ShellCheck (bash linter)
-   * https://www.shellcheck.net/ (accessed 2026-08-20)
-   */
   const generateScript = () => {
     const repo = repoUrl.trim() || DEFAULT_REPO
-    // Extract repo name from URL (e.g., "local-ops-hub" from ".../local-ops-hub.git")
     const repoName = repo.split('/').pop()?.replace('.git', '') || 'repo'
 
     const lines = []
@@ -161,13 +138,6 @@ export default function App() {
     setCopied(false)
   }
 
-  /**
-   * copyScript - Copies the generated script to the user's clipboard.
-   *
-   * REFERENCE: Clipboard API - writeText()
-   * https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText
-   * (MDN Web Docs, accessed 2026-08-20)
-   */
   const copyScript = () => {
     navigator.clipboard.writeText(script)
     setCopied(true)
