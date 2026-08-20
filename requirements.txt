@@ -1,0 +1,2 @@
+# Python dependencies for the setup script generator (if needed)
+# This file is included for completeness; the site itself is static.
